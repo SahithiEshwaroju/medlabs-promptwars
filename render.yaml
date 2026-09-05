@@ -7,7 +7,7 @@ services:
   # ---------------------------------------------------------------------------
   - type: web
     name: medlens-backend
-    env: python
+    runtime: python
     rootDir: backend
     plan: free
     region: oregon
@@ -22,7 +22,7 @@ services:
   # ---------------------------------------------------------------------------
   - type: web
     name: medlens-frontend
-    env: static
+    runtime: static
     rootDir: frontend
     plan: free
     region: oregon
