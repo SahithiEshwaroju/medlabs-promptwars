@@ -1243,11 +1243,15 @@ def get_system_stats(
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 
-frontend_dist = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "frontend", "dist")
-if not os.path.exists(frontend_dist):
-    frontend_dist = os.path.join(os.path.dirname(os.path.abspath(__file__)), "dist")
+backend_dir = os.path.dirname(os.path.abspath(__file__))
+static_candidates = [
+    os.path.join(backend_dir, "static"),
+    os.path.join(backend_dir, "dist"),
+    os.path.join(os.path.dirname(backend_dir), "frontend", "dist")
+]
+frontend_dist = next((p for p in static_candidates if os.path.exists(p)), None)
 
-if os.path.exists(frontend_dist):
+if frontend_dist:
     assets_dir = os.path.join(frontend_dist, "assets")
     if os.path.exists(assets_dir):
         app.mount("/assets", StaticFiles(directory=assets_dir), name="assets")

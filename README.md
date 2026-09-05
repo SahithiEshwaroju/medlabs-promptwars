@@ -96,31 +96,27 @@ npm run build   # Production bundle built in < 1 second
 
 ---
 
-## 🌐 Free Plan Deployment on Render
+## 🌐 Free Plan Deployment on Render (Single Unified Service)
 
-This repository includes a `render.yaml` blueprint configured for **Render's Free Tier**:
+MedLens can be deployed as **one single service** on Render that hosts both the frontend UI and the FastAPI backend together at one URL:
 
-### Method 1: One-Click Blueprint (Recommended)
+### Method 1: 1-Click Blueprint (Recommended)
 1. Go to [Render Dashboard](https://dashboard.render.com) ➔ **Blueprints** ➔ **New Blueprint Instance**.
-2. Connect this repository (`https://github.com/SahithiEshwaroju/medlabs-promptwars.git`).
-3. Render will automatically configure and deploy:
-   - **Backend Web Service** (Python FastAPI, Free plan)
-   - **Frontend Static Site** (React Vite, 100% Free forever on global CDN)
+2. Connect this repository: `https://github.com/SahithiEshwaroju/medlabs-promptwars.git`.
+3. Render reads `render.yaml` and deploys a single unified service: `medlens`.
 4. Click **Apply**.
 
-### Method 2: Manual Setup on Render
-- **Frontend (Static Site)**:
-  - **Root Directory**: `frontend`
-  - **Build Command**: `npm install && npm run build`
-  - **Publish Directory**: `dist`
-  - **Rewrite Rule**: `/*` ➔ `/index.html`
-  - **Environment Variable**: `VITE_API_URL` set to your backend URL (e.g. `https://medlens-backend.onrender.com`)
-- **Backend (Web Service)**:
-  - **Root Directory**: `backend`
-  - **Runtime**: Python 3
-  - **Build Command**: `pip install -r requirements.txt`
-  - **Start Command**: `uvicorn main:app --host 0.0.0.0 --port $PORT`
-  - **Plan**: Free
+### Method 2: Manual Web Service Setup on Render
+1. Click **New +** ➔ **Web Service**.
+2. Connect repository: `https://github.com/SahithiEshwaroju/medlabs-promptwars`.
+3. Configure:
+   - **Name**: `medlens`
+   - **Root Directory**: `backend`
+   - **Runtime**: `Python 3`
+   - **Build Command**: `pip install -r requirements.txt`
+   - **Start Command**: `uvicorn main:app --host 0.0.0.0 --port $PORT`
+   - **Plan**: `Free`
+4. Click **Create Web Service**. Both frontend and backend will be live on your `.onrender.com` URL!
 
 ---
 
