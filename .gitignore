@@ -1,0 +1,56 @@
+# Dependencies
+node_modules/
+backend/venv/
+venv/
+env/
+.venv/
+
+# Production Builds
+dist/
+dist-ssr/
+*.local
+
+# Python cache & runtime
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Databases & Runtime Data
+*.sqlite
+*.sqlite3
+*.db
+*.log
+
+# Environment variables & secrets
+.env
+.env.local
+.env.*.local
+
+# IDE & OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
+.gemini/
+
+# Uploaded scratch & temp files
+scratch/
+uploads/
+*.tmp
