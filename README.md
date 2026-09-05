@@ -96,5 +96,33 @@ npm run build   # Production bundle built in < 1 second
 
 ---
 
+## 🌐 Free Plan Deployment on Render
+
+This repository includes a `render.yaml` blueprint configured for **Render's Free Tier**:
+
+### Method 1: One-Click Blueprint (Recommended)
+1. Go to [Render Dashboard](https://dashboard.render.com) ➔ **Blueprints** ➔ **New Blueprint Instance**.
+2. Connect this repository (`https://github.com/SahithiEshwaroju/medlabs-promptwars.git`).
+3. Render will automatically configure and deploy:
+   - **Backend Web Service** (Python FastAPI, Free plan)
+   - **Frontend Static Site** (React Vite, 100% Free forever on global CDN)
+4. Click **Apply**.
+
+### Method 2: Manual Setup on Render
+- **Frontend (Static Site)**:
+  - **Root Directory**: `frontend`
+  - **Build Command**: `npm install && npm run build`
+  - **Publish Directory**: `dist`
+  - **Rewrite Rule**: `/*` ➔ `/index.html`
+  - **Environment Variable**: `VITE_API_URL` set to your backend URL (e.g. `https://medlens-backend.onrender.com`)
+- **Backend (Web Service)**:
+  - **Root Directory**: `backend`
+  - **Runtime**: Python 3
+  - **Build Command**: `pip install -r requirements.txt`
+  - **Start Command**: `uvicorn main:app --host 0.0.0.0 --port $PORT`
+  - **Plan**: Free
+
+---
+
 ## ⚖️ Medical Disclaimer
 MedLens is an informational and document-management platform. MedLens organizes and summarizes clinical documentation; it does not provide diagnosis, prognosis, treatment recommendations, or medical advice. Always consult a qualified healthcare provider for any health concerns.
