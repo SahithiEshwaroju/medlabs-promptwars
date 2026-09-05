@@ -1,5 +1,10 @@
 # MedLens — Clinical Information Intelligence Platform
 
+[![MedLens CI Pipeline](https://github.com/SahithiEshwaroju/medlabs-promptwars/actions/workflows/ci.yml/badge.svg)](https://github.com/SahithiEshwaroju/medlabs-promptwars/actions)
+![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)
+![Python 3.11+](https://img.shields.io/badge/Python-3.11%2B-blue.svg)
+![React 19](https://img.shields.io/badge/React-19-61dafb.svg)
+
 > **"Understand your medical reports. Keep your health information organized."**
 
 MedLens is a secure, role-based clinical web application designed to bridge the communication gap between patients, diagnostic laboratories, healthcare providers, and health administrators. It combines client-assisted OCR extraction, strict reference-range safety checks, non-diagnostic conflict intelligence, and end-to-end test request workflows.

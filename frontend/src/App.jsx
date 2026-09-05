@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, Suspense, lazy } from 'react';
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import { useApp } from './context/AppContext';
+import { Loader2 } from 'lucide-react';
 
 // Layout Components
 import Navbar from './components/Navbar';
@@ -14,18 +15,27 @@ import ClarificationModal from './components/ClarificationModal';
 import AuthModal from './components/AuthModal';
 import LandingPage from './components/LandingPage';
 
-// Pages
-import Dashboard from './pages/Dashboard';
-import PatientsList from './pages/PatientsList';
-import PatientProfile from './pages/PatientProfile';
-import DocumentUpload from './pages/DocumentUpload';
-import EvidenceViewPage from './pages/EvidenceViewPage';
-import VerificationPage from './pages/VerificationPage';
-import TimelinePage from './pages/TimelinePage';
-import ComparisonPage from './pages/ComparisonPage';
-import ConflictsPage from './pages/ConflictsPage';
-import SourceLibrary from './pages/SourceLibrary';
-import TestRequestsPage from './pages/TestRequestsPage';
+// Lazy-Loaded Dynamic Page Chunks (Reduces Initial Bundle & Eliminates Warnings)
+const Dashboard = lazy(() => import('./pages/Dashboard'));
+const PatientsList = lazy(() => import('./pages/PatientsList'));
+const PatientProfile = lazy(() => import('./pages/PatientProfile'));
+const DocumentUpload = lazy(() => import('./pages/DocumentUpload'));
+const EvidenceViewPage = lazy(() => import('./pages/EvidenceViewPage'));
+const VerificationPage = lazy(() => import('./pages/VerificationPage'));
+const TimelinePage = lazy(() => import('./pages/TimelinePage'));
+const ComparisonPage = lazy(() => import('./pages/ComparisonPage'));
+const ConflictsPage = lazy(() => import('./pages/ConflictsPage'));
+const SourceLibrary = lazy(() => import('./pages/SourceLibrary'));
+const TestRequestsPage = lazy(() => import('./pages/TestRequestsPage'));
+
+function RouteLoadingFallback() {
+  return (
+    <div className="flex flex-col items-center justify-center min-h-[400px] text-slate-500">
+      <Loader2 className="w-8 h-8 animate-spin text-blue-600 mb-3" />
+      <p className="text-sm font-medium">Loading clinical workspace...</p>
+    </div>
+  );
+}
 
 export function App() {
   const {
@@ -68,21 +78,23 @@ export function App() {
         <TopBar />
 
         <main className="flex-1 p-4 sm:p-6 lg:p-8 max-w-7xl w-full mx-auto">
-          <Routes>
-            <Route path="/" element={<Dashboard />} />
-            <Route path="/test-requests" element={<TestRequestsPage />} />
-            <Route path="/patients" element={<PatientsList />} />
-            <Route path="/patient-profile" element={<PatientProfile />} />
-            <Route path="/upload" element={<DocumentUpload />} />
-            <Route path="/evidence" element={<EvidenceViewPage />} />
-            <Route path="/verification" element={<VerificationPage />} />
-            <Route path="/timeline" element={<TimelinePage />} />
-            <Route path="/comparison" element={<ComparisonPage />} />
-            <Route path="/conflicts" element={<ConflictsPage />} />
-            <Route path="/source-library" element={<SourceLibrary />} />
-            {/* Fallback to Dashboard */}
-            <Route path="*" element={<Dashboard />} />
-          </Routes>
+          <Suspense fallback={<RouteLoadingFallback />}>
+            <Routes>
+              <Route path="/" element={<Dashboard />} />
+              <Route path="/test-requests" element={<TestRequestsPage />} />
+              <Route path="/patients" element={<PatientsList />} />
+              <Route path="/patient-profile" element={<PatientProfile />} />
+              <Route path="/upload" element={<DocumentUpload />} />
+              <Route path="/evidence" element={<EvidenceViewPage />} />
+              <Route path="/verification" element={<VerificationPage />} />
+              <Route path="/timeline" element={<TimelinePage />} />
+              <Route path="/comparison" element={<ComparisonPage />} />
+              <Route path="/conflicts" element={<ConflictsPage />} />
+              <Route path="/source-library" element={<SourceLibrary />} />
+              {/* Fallback to Dashboard */}
+              <Route path="*" element={<Dashboard />} />
+            </Routes>
+          </Suspense>
         </main>
       </div>
 
